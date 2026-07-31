@@ -44,7 +44,7 @@ export default function Hero() {
         <div className="gradient-overlay"></div>
         {/* Mobile-friendly background image fallback */}
         <img 
-          src="/media/kanmini.webp" 
+          src="/media/couple.jpg" 
           alt="Dreamy Ocean Background" 
           style={{
             position: 'absolute',
