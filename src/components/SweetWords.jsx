@@ -38,8 +38,23 @@ export default function SweetWords() {
   };
 
   return (
-    <section className="section" style={{ background: 'var(--color-ocean-dark)' }}>
-      
+    <section 
+      className="section" 
+      style={{ 
+        backgroundImage: "url('/media/kanmini.webp')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative'
+      }}
+    >
+      {/* Dark overlay for text readability */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundColor: 'rgba(0, 31, 63, 0.82)',
+        zIndex: 0
+      }} />
+
       <AnimatePresence>
         {particles.map(p => (
           <motion.div
@@ -68,44 +83,61 @@ export default function SweetWords() {
       </AnimatePresence>
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        className="glass-panel"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-50px" }}
         style={{
           display: 'flex',
-          flexWrap: 'wrap',
+          flexDirection: 'column',
+          alignItems: 'center',
           gap: '20px',
-          justifyContent: 'center',
-          maxWidth: '800px',
-          padding: '20px'
+          maxWidth: '500px',
+          width: '90%',
+          padding: '30px 20px',
+          zIndex: 1,
+          textAlign: 'center'
         }}
       >
-        {tagsData.map((tag, index) => (
-          <motion.div
-            key={index}
-            drag
-            dragConstraints={{ left: -20, right: 20, top: -20, bottom: 20 }}
-            whileHover={{ scale: 1.1, y: -5, boxShadow: '0 10px 20px rgba(216, 180, 226, 0.4)' }}
-            whileTap={{ scale: 0.9 }}
-            onPointerDown={(e) => handleTap(e, tag.emojis)}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, type: 'spring', stiffness: 300 }}
-            viewport={{ once: true }}
-            className="glass-panel"
-            style={{
-              padding: '15px 25px',
-              fontSize: '1.2rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              userSelect: 'none',
-              color: 'var(--color-lavender-light)',
-            }}
-          >
-            {tag.text}
-          </motion.div>
-        ))}
+        <h2 style={{ color: 'var(--color-moonlight)', fontSize: '1.5rem', marginBottom: '5px' }}>
+          What Kanna calls you... 💜
+        </h2>
+        <p style={{ color: 'var(--color-seashell)', opacity: 0.7, fontSize: '0.9rem', marginBottom: '10px' }}>
+          (Tap on them for a little surprise)
+        </p>
+
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '12px',
+          justifyContent: 'center',
+          width: '100%'
+        }}>
+          {tagsData.map((tag, index) => (
+            <motion.div
+              key={index}
+              drag
+              dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
+              whileHover={{ scale: 1.08, y: -2, boxShadow: '0 8px 16px rgba(216, 180, 226, 0.3)' }}
+              whileTap={{ scale: 0.95 }}
+              onPointerDown={(e) => handleTap(e, tag.emojis)}
+              className="glass-panel"
+              style={{
+                padding: '12px 20px',
+                fontSize: '1.1rem',
+                fontWeight: 500,
+                cursor: 'pointer',
+                userSelect: 'none',
+                color: 'var(--color-lavender-light)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                background: 'rgba(255,255,255,0.06)'
+              }}
+            >
+              {tag.text}
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
     </section>
   );

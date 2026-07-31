@@ -28,9 +28,15 @@ export default function FinalCTA({ choices }) {
   const handleInteraction = () => {
     setPopupText(phrases[dodgeCount % phrases.length]);
     setDodgeCount(prev => prev + 1);
+    
+    // Constrain movement based on screen size to prevent off-screen overflow
+    const isMobile = window.innerWidth < 768;
+    const rangeX = isMobile ? 80 : 150;
+    const rangeY = isMobile ? 80 : 120;
+
     setPosition({
-      x: (Math.random() - 0.5) * 300,
-      y: (Math.random() - 0.5) * 300
+      x: (Math.random() - 0.5) * rangeX * 2,
+      y: (Math.random() - 0.5) * rangeY * 2
     });
     
     setTimeout(() => setPopupText(''), 1500);
@@ -76,7 +82,8 @@ export default function FinalCTA({ choices }) {
                   color: 'var(--color-lavender-light)',
                   fontSize: '1.2rem',
                   fontWeight: 600,
-                  textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                  textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                  zIndex: 20
                 }}
               >
                 {popupText}
@@ -88,7 +95,7 @@ export default function FinalCTA({ choices }) {
             Will you be mine, Kanmani? 💜
           </h2>
 
-          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', position: 'relative', height: '100px' }}>
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', position: 'relative', height: '120px' }}>
             <motion.button
               onClick={triggerSuccess}
               className="glow-text"
@@ -112,7 +119,10 @@ export default function FinalCTA({ choices }) {
               animate={{ x: position.x, y: position.y }}
               transition={{ type: 'spring', stiffness: 300, damping: 15 }}
               onHoverStart={handleInteraction}
-              onClick={handleInteraction}
+              onPointerDown={(e) => {
+                e.preventDefault();
+                handleInteraction();
+              }}
               style={{
                 padding: '15px 35px',
                 fontSize: '1.3rem',
