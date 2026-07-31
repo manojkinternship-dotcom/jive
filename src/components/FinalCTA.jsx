@@ -92,7 +92,7 @@ export default function FinalCTA({ choices }) {
           </AnimatePresence>
 
           <h2 style={{ color: 'var(--color-moonlight)', marginBottom: '10px', fontSize: '1.8rem', textAlign: 'center', padding: '0 20px' }}>
-            Will you be mine, Kanmani? 💜
+            Say Yes Kanmani 💜
           </h2>
 
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center', position: 'relative', height: '120px' }}>
