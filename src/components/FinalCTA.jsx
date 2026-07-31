@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 const phrases = [
-  "Try harder babe 😏",
-  "Nice try, kanmani",
-  "Ok fine, catch me if you can! 🦋"
+  "No is not an option! 😜",
+  "Are you sure? Try again! 😏",
+  "Nice try, kanmani! Click Yes! 💜"
 ];
 
 export default function FinalCTA({ choices }) {
@@ -26,18 +26,14 @@ export default function FinalCTA({ choices }) {
   };
 
   const handleInteraction = () => {
-    if (dodgeCount < 3) {
-      setPopupText(phrases[dodgeCount]);
-      setDodgeCount(prev => prev + 1);
-      setPosition({
-        x: (Math.random() - 0.5) * 200,
-        y: (Math.random() - 0.5) * 200
-      });
-      
-      setTimeout(() => setPopupText(''), 1500);
-    } else {
-      triggerSuccess();
-    }
+    setPopupText(phrases[dodgeCount % phrases.length]);
+    setDodgeCount(prev => prev + 1);
+    setPosition({
+      x: (Math.random() - 0.5) * 300,
+      y: (Math.random() - 0.5) * 300
+    });
+    
+    setTimeout(() => setPopupText(''), 1500);
   };
 
   const triggerSuccess = () => {
@@ -66,7 +62,7 @@ export default function FinalCTA({ choices }) {
   return (
     <section className="section" style={{ background: 'var(--color-ocean-dark)' }}>
       {!success ? (
-        <div style={{ position: 'relative', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ position: 'relative', height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '30px' }}>
           
           <AnimatePresence>
             {popupText && (
@@ -76,7 +72,7 @@ export default function FinalCTA({ choices }) {
                 exit={{ opacity: 0, y: -20 }}
                 style={{
                   position: 'absolute',
-                  top: '20%',
+                  top: '15%',
                   color: 'var(--color-lavender-light)',
                   fontSize: '1.2rem',
                   fontWeight: 600,
@@ -88,31 +84,50 @@ export default function FinalCTA({ choices }) {
             )}
           </AnimatePresence>
 
-          <motion.button
-            animate={{ x: position.x, y: position.y }}
-            transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-            onHoverStart={handleInteraction}
-            onClick={() => {
-              // Mobile fallback if hover doesn't trigger well
-              if (dodgeCount >= 3) triggerSuccess();
-              else handleInteraction();
-            }}
-            className="glow-text"
-            style={{
-              padding: '20px 40px',
-              fontSize: '1.5rem',
-              borderRadius: '50px',
-              backgroundColor: 'var(--color-lavender)',
-              color: 'var(--color-ocean-dark)',
-              fontWeight: 700,
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0 10px 30px rgba(216, 180, 226, 0.4)',
-              zIndex: 10
-            }}
-          >
-            Say Yes, Babe 💖
-          </motion.button>
+          <h2 style={{ color: 'var(--color-moonlight)', marginBottom: '10px', fontSize: '1.8rem', textAlign: 'center', padding: '0 20px' }}>
+            Will you be mine, Kanmani? 💜
+          </h2>
+
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', position: 'relative', height: '100px' }}>
+            <motion.button
+              onClick={triggerSuccess}
+              className="glow-text"
+              style={{
+                padding: '15px 35px',
+                fontSize: '1.3rem',
+                borderRadius: '50px',
+                backgroundColor: 'var(--color-lavender-light)',
+                color: 'var(--color-ocean-dark)',
+                fontWeight: 700,
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 5px 20px rgba(216, 180, 226, 0.4)',
+                zIndex: 10
+              }}
+            >
+              Say Yes, Babe 💖
+            </motion.button>
+
+            <motion.button
+              animate={{ x: position.x, y: position.y }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+              onHoverStart={handleInteraction}
+              onClick={handleInteraction}
+              style={{
+                padding: '15px 35px',
+                fontSize: '1.3rem',
+                borderRadius: '50px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                color: 'var(--color-moonlight)',
+                fontWeight: 600,
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                cursor: 'pointer',
+                zIndex: 10
+              }}
+            >
+              No 😢
+            </motion.button>
+          </div>
         </div>
       ) : (
         <motion.div

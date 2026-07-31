@@ -113,7 +113,7 @@ export default function AskHerOut({ choices, setChoices }) {
                 {choices.length === 0 ? (
                   <>
                     <h3 style={{ color: 'var(--color-lavender-light)', marginBottom: '15px' }}>
-                      Aww, playing hard to get? 🥺
+                      Aww, want to plan it your way? 🥺
                     </h3>
                     <p style={{ color: 'var(--color-moonlight)', marginBottom: '20px', lineHeight: 1.5 }}>
                       Fine! You get to plan the whole day, and I'll just follow along (and pay for everything) 💜

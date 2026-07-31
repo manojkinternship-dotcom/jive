@@ -42,6 +42,21 @@ export default function Hero() {
     <section className="section hero-section">
       <div className="hero-background">
         <div className="gradient-overlay"></div>
+        {/* Mobile-friendly background image fallback */}
+        <img 
+          src="/media/kanmini.webp" 
+          alt="Dreamy Ocean Background" 
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            opacity: 0.2,
+            mixBlendMode: 'luminosity',
+            zIndex: -1
+          }}
+        />
         <iframe 
           src="/media/🥴.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
           title="Background texture"
